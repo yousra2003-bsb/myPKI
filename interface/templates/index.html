@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Gestionnaire PKI</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            text-align: center;
+            margin: 0; padding: 0;
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            color: #333;
+        }
+        h1 {
+            font-size: 3em;
+            margin-bottom: 0.1em;
+            font-weight: bold;
+        }
+        h3 {
+            margin-top: 0;
+            font-weight: normal;
+            color: #555;
+            margin-bottom: 3em;
+        }
+        .buttons {
+            display: flex;
+            justify-content: center;
+            gap: 2em;
+        }
+        button {
+            font-size: 1.2em;
+            padding: 1em 2em;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            color: white;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: background-color 0.3s ease;
+        }
+        button.blue {
+            background-color: #4A90E2;
+        }
+        button.blue:hover {
+            background-color: #357ABD;
+        }
+        button.red {
+            background-color: #E94B3C;
+        }
+        button.red:hover {
+            background-color: #C4382A;
+        }
+        button.green {
+            background-color: #4CAF50;
+        }
+        button.green:hover {
+            background-color: #388E3C;
+        }
+        form {
+            display: inline;
+        }
+    </style>
+</head>
+<body>
+    <h1>Gestionnaire PKI</h1>
+    <h3>Interface de gestion des certificats à 3 niveaux</h3>
+
+    <div class="buttons">
+        <form action="/generate" method="get">
+            <button type="submit" class="blue">Générer un certificat</button>
+        </form>
+        <form action="/revoke" method="get">
+            <button type="submit" class="red">Révoquer un certificat</button>
+        </form>
+        <form action="/verify" method="get">
+            <button type="submit" class="green">Vérifier un certificat</button>
+        </form>
+    </div>
+</body>
+</html>

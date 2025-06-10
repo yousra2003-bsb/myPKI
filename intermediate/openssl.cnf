@@ -1,0 +1,91 @@
+# openssl.cnf - Configuration pour Intermediate CA
+
+[ ca ]
+default_ca = CA_default
+
+[ CA_default ]
+dir = /home/yousra/myPKI/intermediate
+
+certs             = $dir/certs
+crl_dir           = $dir/crl
+new_certs_dir     = $dir/newcerts
+database          = $dir/index.txt
+serial            = $dir/serial
+crlnumber         = $dir/crlnumber
+RANDFILE          = $dir/private/.rand
+
+private_key       = $dir/private/intermediate.key.pem
+certificate       = $dir/certs/intermediate.cert.pem
+
+crl               = $dir/crl/intermediate.crl.pem
+crl_extensions    = crl_ext
+default_crl_days  = 30
+
+default_md        = sha256
+
+name_opt          = ca_default
+cert_opt          = ca_default
+default_days      = 3650
+preserve          = no
+policy            = policy_loose
+
+[ policy_loose ]
+countryName             = optional
+stateOrProvinceName     = optional
+localityName            = optional
+organizationName        = optional
+organizationalUnitName  = optional
+commonName              = supplied
+emailAddress            = optional
+
+[ req ]
+default_bits        = 4096
+default_md          = sha256
+distinguished_name  = req_distinguished_name
+string_mask         = utf8only
+req_extensions      = v3_intermediate_ca_req      # <--- Section pour la CSR, sans authorityKeyIdentifier
+
+[ req_distinguished_name ]
+countryName                     = Code du pays (2 lettres)
+stateOrProvinceName             = Région ou État
+localityName                    = Ville
+0.organizationName              = Nom de l'organisation
+organizationalUnitName          = Unité organisationnelle
+commonName                      = Nom commun (ex : Intermediate CA)
+emailAddress                    = Adresse email
+
+# Extensions pour la CSR (sans authorityKeyIdentifier)
+[ v3_intermediate_ca_req ]
+basicConstraints = critical, CA:true, pathlen:0
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+subjectKeyIdentifier = hash
+# Ne PAS mettre authorityKeyIdentifier ici
+
+# Extensions pour la signature du certificat Intermediate CA (avec authorityKeyIdentifier)
+[ v3_intermediate_ca ]
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid:always,issuer
+basicConstraints = critical, CA:true, pathlen:0
+keyUsage = critical, digitalSignature, cRLSign, keyCertSign
+
+# Certificats utilisateurs (feuilles)
+[ usr_cert ]
+basicConstraints = CA:FALSE
+nsComment = "Certificat utilisateur"
+subjectKeyIdentifier = hash
+# authorityKeyIdentifier = keyid,issuer    # <-- commenté pour éviter erreurs lors de la création CSR
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = clientAuth, emailProtection
+
+# Certificats serveurs
+[ server_cert ]
+basicConstraints = CA:FALSE
+nsComment = "Certificat serveur"
+subjectKeyIdentifier = hash
+authorityKeyIdentifier = keyid,issuer
+keyUsage = critical, digitalSignature, keyEncipherment
+extendedKeyUsage = serverAuth
+
+[ crl_ext ]
+authorityKeyIdentifier = keyid:always
+

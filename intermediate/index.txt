@@ -1,0 +1,1 @@
+R	260615105924Z	250605110209Z	1000	unknown	/C=MR/ST=TTH/L=Tanger/O=LeafOrg/OU=Web/CN=leaf.example.com

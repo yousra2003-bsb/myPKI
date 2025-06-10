@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <title>Vérifier un certificat</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background: #f0f4f8;
+            color: #333;
+            padding: 2em;
+            max-width: 400px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-top: 1em;
+            font-weight: bold;
+        }
+        input[type="text"], select {
+            width: 100%;
+            padding: 0.5em;
+            margin-top: 0.3em;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            font-size: 1em;
+        }
+        button {
+            margin-top: 2em;
+            width: 100%;
+            background-color: #4CAF50;
+            border: none;
+            padding: 1em;
+            font-size: 1.2em;
+            color: white;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        button:hover {
+            background-color: #388E3C;
+        }
+        a {
+            display: inline-block;
+            margin-top: 1.5em;
+            text-decoration: none;
+            color: #4A90E2;
+        }
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <h2>Vérifier un certificat</h2>
+    <form method="post">
+        <label for="common_name">Nom commun (CN) :</label>
+        <input type="text" id="common_name" name="common_name" required>
+
+        <label for="cert_type">Type de certificat :</label>
+        <select id="cert_type" name="cert_type" required>
+            <option value="" disabled selected>Choisissez un type</option>
+            <option value="client">Client</option>
+            <option value="serveur">Serveur</option>
+            <option value="intermédiaire">Intermédiaire</option>
+            <option value="racine">Racine</option>
+        </select>
+
+        <button type="submit">Vérifier</button>
+    </form>
+    <a href="/">Retour</a>
+</body>
+</html>
+
